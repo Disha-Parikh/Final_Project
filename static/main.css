@@ -1,0 +1,146 @@
+body {
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+  /* color:#007bff; */
+  /* color: radial-gradient(ellipse at center, #74f1fc 0%, #32e6ff 73%, #15c7fa 100%); */
+}
+
+h9{
+  color:grey;
+  font-size: 1.5rem;
+  font-weight: 500
+
+}
+
+.bg-steel {
+  background-color: #863c33;
+  /* background-image: linear-gradient(to left, #777c81, #696e74, #5c6167, #4f545b, #42474f, #494e56, #51555d, #585c64, #767a82, #969aa1, #b8bbc2, #dadde3); */
+}
+
+.f{
+  background-image: linear-gradient(to left, #949caa, #808895, #6d7480, #5b616c, #494e58, #4e535c, #535760, #585c64, #767a82, #969aa1, #b8bbc2, #dadde3);
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  /* color: #ffffff; */
+  /* color:#007bff*/
+  color:white;
+
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+  color:black;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: blue;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 90px;
+  width: 90px;
+  margin-right: 40px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border-radius: 5%;
+}
+
+.account-heading {
+  font-size: 1.5rem;
+  color:grey;
+  margin-top: 4%;
+}
+
+
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  position:fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  background-color: rgb(0,0,0); /* Black fallback color */
+  background-color: rgba(0, 0, 0, 0.63); /* Black w/opacity */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+.overlay-content {
+  position: relative;
+  top: 30%; /* 25% from the top */
+  width: 100%; /* 100% width */
+  text-align: center; /* Centered text/links */
+  margin-top: 36px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+
+.overlay-content1{
+  position: relative;
+  width: 100%;
+}
+
+.overlay-content2{
+  position: relative;
+  top: 30%; /* 25% from the top */
+  width: 100%; /* 100% width */
+  /* margin-top: 36px; /* 30px top margin to avoid conflict with the close button on smaller screens */ */
+}
+
+h7 {
+  font-family: "Times New Roman", Times, serif;
+font-size: 30px;
+letter-spacing: 2px;
+word-spacing: 2px;
+color: #fff;
+font-weight: 700;
+text-decoration: none;
+font-style: normal;
+font-variant: small-caps;
+text-transform: none;
+}

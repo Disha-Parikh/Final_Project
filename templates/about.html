@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div>
+    <h1 style="font-family: Georgia, serif;
+font-size: 30px;
+font-weight: 600;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;">About Page</h1>
+
+
+    <p align="justify">Face recognition is a task that humans perform remarkably easily and successfully. This apparently simple task cannot be done so easily and accurately by machines, the automatic face recognition seems to be a problem that is still far from being solved. In spite of more than 25 years of extensive research, large number of papers published in journals and conferences are dedicated to this area, we still cannot claim that artificial systems can measure to human performance. Automatic face recognition is intricate primarily because of difficult imaging conditions (lighting and viewpoint changes induced by body movement) and because of various other effects like aging, facial expressions, occlusions etc. Researchers from computer vision, image analysis and processing, pattern recognition, machine learning and other areas are working jointly, motivated largely by a number of possible practical applications.<br> <br>
+
+This project is motivated by the large number of practical applications that face recognition holds. Here, I have tried to create a system that will detect the faces using camera and then recognize the user with the help of stored data and mark his or her attendance in the database. This system also facilitates the user to see their daily schedule and make them able to manage their day to day activates accordingly by helping them remember their meetings and other scheduled events. The system is capable of getting the events from five major calendar services – Google Calendar, Apple Calendar, Microsoft Office 365, Microsoft Outlook.com, and Microsoft Exchange (including on premise).</p>
+  <img style="margin-left: 70%; margin-bottom:20%;"src="{{ url_for('static', filename='images/Home-page-banner-Facial-Rec-N2.png') }}">
+  </div>
+{% endblock content %}

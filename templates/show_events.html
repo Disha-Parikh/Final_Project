@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='hue.css') }}">
+
+    {% if title %}
+        <title>IntellFRS - {{ title }}</title>
+    {% else %}
+        <title>IntellFRS</title>
+    {% endif %}
+
+    <style type="text/css">
+      .login{
+        border-right: 1px solid #212121;
+      }
+      .prpfile{
+        display: none;
+      }
+      .profile:hover{
+        display: block;
+      }
+    </style>
+
+    <script type="text/javascript">
+      function f(){
+        $('#example').hide();
+        $.ajax({
+          url: 'http://127.0.0.1:5000/event',
+          success: function(response) {
+            // alert(response);
+            var jsondata = jQuery.parseJSON(response);
+            eventdetail(jsondata);
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      }
+
+      function eventdetail(jsondata)
+      {
+        for(var index=0;index<jsondata.length;index++){
+
+          theSdate = new Date( Date.parse(jsondata[index].start));
+          theEdate = new Date( Date.parse(jsondata[index].end));
+          startTime = theSdate.toLocaleTimeString();
+          endTime= theEdate.toLocaleTimeString();
+          startDate= theSdate.toLocaleDateString();
+          endDate= theEdate.toLocaleDateString();
+
+
+          // var starttime=jsondata[index].start.split("T");
+          // var endtime=jsondata[index].end.split("T");
+
+
+          var member=jsondata[index].attendees.length;
+          var membername="<ol>";
+
+          for(var i=0;i<member;i++){
+            membername+="<li>"+jsondata[index].attendees[i].display_name+"</li>";
+          }
+          membername+="</ol>";
+          // var row="<tr><td>"+starttime[0]+"</td><td>"+starttime[1]+"-"+endtime[1]+"</td><td>"+jsondata[index].summary+"</td><td>"+jsondata[index].location.description+"</td><td>"+membername+"</td></tr>";
+          var row="<tr><td>"+startDate+"</td><td>"+startTime+"-"+endTime+"</td><td>"+jsondata[index].summary+"</td><td>"+jsondata[index].location.description+"</td><td>"+membername+"</td></tr>";
+          $("#eventdata").append(row);
+         }
+
+         $('#example').DataTable();
+         $('#example').show();
+       }
+     </script>
+   </head>
+
+   <header class="site-header">
+     <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style=" background: currentcolor;">
+       <img style="margin-left: 2%;"height=40px; width=100px src="{{ url_for('static', filename='images/logo.png') }}">
+       <source src="../static/images/b.png" type="png">
+       <div class="container">
+
+
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarToggle">
+           <div class="navbar-nav mr-auto">
+             <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+             <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+           </div>
+           <!-- Navbar Right Side -->
+           <div class="navbar-nav">
+             {% if current_user.is_authenticated %}
+             <!-- Dropdown -->
+               <!-- <li class="nav-item dropdown">
+                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                   Menu
+                 </a>
+                 <div class="dropdown-menu">
+                   <a class="dropdown-item" href="{{ url_for('events') }}">Events</a>
+                   <a class="dropdown-item" href="{{ url_for('attendance') }}">Attendance</a>
+                   <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                   <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                 </div>
+               </li> -->
+             </ul>
+               <a class="nav-item nav-link" href="{{ url_for('events') }}">Events</a>
+               <a class="nav-item nav-link" href="{{ url_for('attendance') }}">Attendance</a>
+               <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+               <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+             {% else %}
+               <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+               <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+             {% endif %}
+           </div>
+         </div>
+       </div>
+     </nav>
+   </header>
+
+   <body onload="f()"  style="overflow: hidden; height:1300px ;"class="unicorn" >
+       <main role="main" class="container" style="margin-top:6%;" >
+         <table id="example" class="lg-data-table" style="width:100%;">
+           <thead>
+             <tr>
+               <th>Date</th>
+               <th>Time</th>
+               <th >Event</th>
+               <th >Location</th>
+               <th>Attendees</th>
+             </tr>
+           </thead>
+           <tbody id="eventdata"></tbody>
+         </table>
+     </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css"/>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
+
+  </body>
+  </html>

@@ -1,0 +1,75 @@
+
+{% extends "layout.html" %}
+  {% block content1 %}
+
+  <main role="main" class="container">
+    <div id="myDiv" style="margin-top:3%"><!-- Plotly chart will be drawn inside this DIV --></div>
+  </main>
+
+  <script>
+
+    var getData= $.get('/att');
+    function daysInMonth (month, year) { // Use 1 for January, 2 for February, etc.
+      return new Date(year, month, 0).getDate();
+    }
+
+    getData.done(function(resp){
+      var json = JSON.parse(resp);
+
+    var trace1 = {
+      x: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      y: [json["1"],json["2"],json["3"],json["4"],json["5"],json["6"],json["7"],json["8"],json["9"],json["10"],json["11"],json["12"]],
+      name: 'Present',
+      marker: {color: 'rgb(55, 83, 109)'},
+      type: 'bar'
+    };
+
+    var trace2 = {
+      x: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      y: [daysInMonth(1, 2019)-json["1"],daysInMonth(2, 2019)-json["2"],daysInMonth(3, 2019)-json["3"],daysInMonth(4, 2019)-json["4"],
+      daysInMonth(5, 2019)-json["5"],daysInMonth(6, 2019)-json["6"],daysInMonth(7, 2019)-json["7"],daysInMonth(8, 2019)-json["8"],
+      daysInMonth(9, 2019)-json["9"],daysInMonth(10, 2019)-json["10"],daysInMonth(11, 2019)-json["11"],daysInMonth(12, 2019)-json["12"]],
+      name: 'Absent',
+      marker: {color: 'rgb(26, 118, 255)'},
+      type: 'bar'
+    };
+
+    var data = [trace1, trace2];
+
+    var layout = {
+      title: 'Monthly Attendance of year 2019',
+      xaxis: {
+        title: 'Month',
+        tickfont: {
+          size: 14,
+          color: 'rgb(107, 107, 107)'
+        }},
+      yaxis: {
+        title: 'Number of days',
+        titlefont: {
+          size: 16,
+          color: 'rgb(107, 107, 107)'
+        },
+        tickfont: {
+          size: 14,
+          color: "rgb(107, 107, 107)"
+        }
+      },
+      legend: {
+        x: 0,
+        y: 1.0,
+        bgcolor: 'rgba(255, 255, 255, 0)',
+        bordercolor: 'rgba(255, 255, 255, 0)'
+      },
+      barmode: 'group',
+      bargap: 0.15,
+      bargroupgap: 0.1
+    };
+    Plotly.newPlot('myDiv', data, layout, {responsive: true});
+
+
+    // Plotly.newPlot('myDiv', data, layout, {showSendToCloud:true});
+    });
+  </script>
+
+  {% endblock content1 %}
